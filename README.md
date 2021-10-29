@@ -1,3 +1,9 @@
+# Authentication
+
+Authentication will be achieved through Firebase APIs to make user management effortless. The frontend authenticates through Firebase directly using the [Authentication API](https://firebase.google.com/docs/auth) and requests authentication from the backend server by attaching the returned `IdToken` to the headers of the login request. The server then verifies the `IdToken` through the [Admin Auth API](https://firebase.google.com/docs/auth/admin) and responds with a `SessionToken` (see [Manage Session Cookies](https://firebase.google.com/docs/auth/admin/manage-cookies?authuser=1)). The frontend requests would then attach `SessionToken` so the server can verify each request.
+
+![Authentication flow](assets/authentication-flow.png "Authentication Flow")
+
 # Game Notes
 
 The objects that make up the game and their behavior
