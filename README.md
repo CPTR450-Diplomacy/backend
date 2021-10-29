@@ -54,7 +54,7 @@ F = Fleet	A = Army
     - F - Bre
 - Italy
     - A - Rom
-    - A - ven
+    - A - Ven
     - F - Nap
 - Austr- 
     - A - Vie
@@ -67,7 +67,7 @@ F = Fleet	A = Army
 - Russia
     - A - Mos
     - F - Sev
-    - A - Wa
+    - A - War
     - F - Stp
 
 ### Uncontrolled Provinces
