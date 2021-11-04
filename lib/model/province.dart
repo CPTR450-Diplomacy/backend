@@ -46,4 +46,7 @@ Map <String, String> uncontrolledProvince = {
 // TODO: code is duplicated
 
 class Province {
+  // TODO: modify static province definition
+  static Province province = '' as Province;
+
 }
