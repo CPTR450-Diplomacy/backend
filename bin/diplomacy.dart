@@ -1,5 +1,17 @@
-import 'package:diplomacy/diplomacy.dart' as diplomacy;
+import 'dart:async';
+import 'dart:io';
 
-void main(List<String> arguments) {
-  print('Hello world: ${diplomacy.calculate()}!');
+import 'package:diplomacy/diplomacy.dart' as diplomacy;
+import 'package:diplomacy/controller/controller.dart';
+
+void main(List<String> arguments) async {
+  final api = Api();
+  await api.initialize();
+
+  // String? quit = stdin.readLineSync();
+
+  // if (quit == 'q') {
+  //   api.server.close();
+  //   exit(0);
+  // }
 }
