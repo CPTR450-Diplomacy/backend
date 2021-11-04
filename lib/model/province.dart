@@ -3,9 +3,9 @@ part of model;
 // TODO change String to Province type
 Map<String, String> controlledProvince = {
 // Germany
-    'Ank': 'Germany',
-    'Con': 'Germany',
-    'Smy': 'Germany',
+    'Bel': 'Germany',
+    'Kie': 'Germany',
+    'Mun': 'Germany',
 // England
     'Lon': 'England',
     'Edi': 'England',
