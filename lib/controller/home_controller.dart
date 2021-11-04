@@ -9,6 +9,7 @@ class HomeController {
     });
 
     router.mount('/login/', LoginController().router);
+    router.mount('/games_endpoint/', GamesEndpoint().router);
 
     router.all('/<ignored|.*>', (Request request) {
       return Response.notFound('Page not found');
