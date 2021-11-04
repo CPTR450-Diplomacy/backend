@@ -1,6 +1,6 @@
 part of model;
 
-var controlled_province = {
+Map<String, String> controlledProvince = {
 // Germany
     'Ank': 'Germany',
     'Con': 'Germany',
@@ -28,19 +28,22 @@ var controlled_province = {
     'Stp': 'Russia',
 };
 
-var uncontrolled_province = {
-    'Bel': -1,
-    'Bul': -1,
-    'Den': -1,
-    'Gre': -1,
-    'Hol': -1,
-    'Nwy': -1,
-    'Por': -1,
-    'Rum': -1,
-    'Ser': -1,
-    'Spa': -1,
-    'Swe': -1,
-    'Tun': -1
+Map <String, String> uncontrolledProvince = {
+    'Bel': "",
+    'Bul': "",
+    'Den': "",
+    'Gre': "",
+    'Hol': "",
+    'Nwy': "",
+    'Por': "",
+    'Rum': "",
+    'Ser': "",
+    'Spa': "",
+    'Swe': "",
+    'Tun': ""
 };
 
-// TODO codwe is duplicated
+// TODO: code is duplicated
+
+class Province {
+}
