@@ -1,5 +1,6 @@
 part of model;
 
+// TODO change String to Province type
 Map<String, String> controlledProvince = {
 // Germany
     'Ank': 'Germany',
@@ -42,11 +43,11 @@ Map <String, String> uncontrolledProvince = {
     'Swe': "",
     'Tun': ""
 };
-
-// TODO: code is duplicated
-
 class Province {
-  // TODO: modify static province definition
+  // TODO modify static province definition
   static Province province = '' as Province;
-
+  Set<Province> adjacentProvinces = {};
+  Unit unit = '' as Unit;
+  bool hasSupplyCenter = false;
 }
+
