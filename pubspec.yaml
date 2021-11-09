@@ -13,17 +13,9 @@ dependencies:
   shelf_router: ^1.1.1
   googleapis: ^6.0.0
   googleapis_auth: ^1.2.0
-
-  jaguar_jwt: ^3.0.0
-  
-  # dart_jsonwebtoken:
-  #   git:
-  #     url: git@github.com:WillHensel/dart_jsonwebtoken.git
-  #     ref: google-support
-
   http: ^0.13.4
-
-#   path: ^1.8.0
+  dart_jsonwebtoken: ^2.4.0
+  basic_utils: ^3.8.1
 
 dev_dependencies:
   lints: ^1.0.0

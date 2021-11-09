@@ -7,13 +7,10 @@ class LoginController {
     router.post('/', (Request r) async {
       var request = jsonDecode(await r.readAsString());
       var token = request['sesionToken'];
-      var tokenIssuer = "https://securetoken.google.com/cptr450-diplomacy";
-      var env = Platform.environment;
-      // Map<String, String> credentials = jsonDecode(env['credentials']!);
-      String privateKey = env['private_key']!;
-      // final jwt = JWT.verify(token, SecretKey(privateKey));
-      // print(jwt.header);
-      return Response.ok('Login post reponse');
+      var jwt = GoogleJwt(token);
+      bool verified = await jwt.verifySignature();
+      print('Verified? $verified');
+      return Response.ok('Login post reponse $verified');
     });
 
     router.get('/', (Request r) {
