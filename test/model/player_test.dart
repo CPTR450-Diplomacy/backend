@@ -6,9 +6,13 @@ void main(){
   test('Player Test', () {
     Player player = Player();
     expect(player.name, isA<String>());
-    expect(player.allegiances, <Country>(){
-
-    });
 
   });
 }
+
+/*
+    expect(player.allegiances, <Country>(){
+
+    });
+    
+*/
