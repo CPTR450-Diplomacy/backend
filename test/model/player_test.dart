@@ -4,15 +4,10 @@ import 'package:test/test.dart';
 
 void main(){
   test('Player Test', () {
-    Player player = Player();
+    String name = '';
+    Set<Country> allegiances = {};
+    Player player = Player(name,allegiances);
     expect(player.name, isA<String>());
 
   });
 }
-
-/*
-    expect(player.allegiances, <Country>(){
-
-    });
-    
-*/
