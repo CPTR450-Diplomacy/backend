@@ -4,4 +4,9 @@
 
 # Conventional directory for build output.
 build/
+
+# VSCode Workspace settings
 .vscode/
+
+# Data storage
+data/

@@ -1,13 +1,51 @@
 part of model;
 
-class FilePersistence {
+class FilePersistence extends Persistence {
+  String usersTable = 'data/users';
+  String gameMastersTable = 'data/gameMasters';
+
   @override
-  void storeObject(dynamic object, Table table) {
+  Future<void> initialize() async {
+    if (!await Directory('data').exists()) {
+      await Directory('data').create();
+    }
+
+    if (!await Directory(usersTable).exists()) {
+      await Directory(usersTable).create();
+    }
+
+    if (!await Directory(gameMastersTable).exists()) {
+      await Directory(gameMastersTable).create();
+    }
+
+    initialized = true;
+  }
+
+  @override
+  Future<void> storeObject(Map<String, dynamic> object, Table table) async {
+    String tablePath;
+    if (table == Table.users) {
+      tablePath = usersTable;
+    } else {
+      tablePath = gameMastersTable;
+    }
+
+    if (!object.containsKey('id')) {
+      throw StateError('Invalid object: \'id\' field does not exist');
+    }
+
+    await File('$tablePath/${object['id']}').writeAsString(jsonEncode(object));
+  }
+
+  @override
+  Future<dynamic> readObject(String id, Table table) async {
     throw UnimplementedError();
   }
 
   @override
-  dynamic readObject(String id, Table table) {
-    throw UnimplementedError();
+  Future<void> waitForInitialization() async {
+    while (!initialized) {
+      await Future.delayed(Duration(milliseconds: 1));
+    }
   }
 }
