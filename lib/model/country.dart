@@ -6,5 +6,3 @@ class Country {
 
   Country(this.name, this.province);
 }
-
-

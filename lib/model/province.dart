@@ -5,5 +5,7 @@ class Province {
   Set<Province> adjacentProvinces = {};
   Unit unit = '' as Unit;
   bool hasSupplyCenter = false;
+
+  Province(province, this.adjacentProvinces, this.unit,this.hasSupplyCenter);
 }
 

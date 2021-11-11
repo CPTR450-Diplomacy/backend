@@ -3,15 +3,10 @@ import 'package:test/test.dart';
 
 void main(){
   test('Country Test', () {
-    Country country = Country();
+    String name = 'Germany';
+    Set<Province> province = {};
+    Country country = Country(name, province);
     expect(country.name, isA<String>());
     expect(country.province, isA<Province>());
   });
 }
-
-/*
-    expect(country.province, <Province>(){
-      'baja' ; 
-      'blast';
-    });
- */
