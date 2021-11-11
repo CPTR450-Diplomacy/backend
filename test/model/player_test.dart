@@ -7,10 +7,8 @@ void main(){
     Player player = Player();
     expect(player.name, isA<String>());
     expect(player.allegiances, <Country>(){
-      'Germany';
-      'Austria';
-      'Turkey';
+
     });
-    
+
   });
 }
