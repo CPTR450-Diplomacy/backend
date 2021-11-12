@@ -13,10 +13,6 @@ class GamesController {
       return Response.ok("Games Controller response");
     });
 
-    router.get('/:id', (Request r) {
-      return Response.ok("Games :id");
-    });
-
     router.all('/<ignored|.*>', (Request request) => Response.notFound('null'));
 
     return router;
