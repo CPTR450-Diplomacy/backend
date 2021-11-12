@@ -39,7 +39,20 @@ class FilePersistence extends Persistence {
 
   @override
   Future<dynamic> readObject(String id, Table table) async {
-    throw UnimplementedError();
+    String tablePath;
+    if (table == Table.users) {
+      tablePath = usersTable;
+    } else {
+      tablePath = gameMastersTable;
+    }
+
+    var fileName = '$tablePath\\$id';
+
+    if (!await File(fileName).exists()) {
+      throw StateError('Object does not exist');
+    }
+
+    return jsonDecode(await File(fileName).readAsString());
   }
 
   @override
