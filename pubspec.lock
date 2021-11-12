@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "28.0.0"
+    version: "30.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.7.0"
   args:
     dependency: transitive
     description:
@@ -49,7 +49,7 @@ packages:
       name: cli_util
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   collection:
     dependency: transitive
     description:
@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  http_methods:
+    dependency: transitive
+    description:
+      name: http_methods
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -161,7 +168,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   node_preamble:
     dependency: transitive
     description:
@@ -198,7 +205,7 @@ packages:
     source: hosted
     version: "2.1.0"
   shelf:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shelf
       url: "https://pub.dartlang.org"
@@ -211,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  shelf_router:
+    dependency: "direct main"
+    description:
+      name: shelf_router
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   shelf_static:
     dependency: transitive
     description:
@@ -280,21 +294,21 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.18.2"
+    version: "1.19.3"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.4.7"
   test_core:
     dependency: transitive
     description:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.4.8"
   typed_data:
     dependency: transitive
     description:
