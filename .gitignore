@@ -6,3 +6,6 @@
 # Conventional directory for build output.
 build/
 .vscode
+
+# Database directory
+data
