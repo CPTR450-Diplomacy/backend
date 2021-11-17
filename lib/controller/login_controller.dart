@@ -10,6 +10,7 @@ class LoginController {
       var jwt = GoogleJwt(token);
       bool verified = await jwt.verifySignature();
       print('Verified? $verified');
+
       return Response.ok('Login post reponse $verified');
     });
 

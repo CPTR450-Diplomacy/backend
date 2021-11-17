@@ -31,13 +31,13 @@ class GoogleJwt {
   }
 
   Future<bool> verifySignature() async {
-    if (headerJson == null) {
-      decodeHeaderAndPayload();
-    }
-    String pem = await retrievePublicKey(headerJson!['kid']);
-    var cert = X509Utils.x509CertificateFromPem(pem);
-    print(CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(
-        cert.publicKeyData.plainSha1!));
+    // if (headerJson == null) {
+    //   decodeHeaderAndPayload();
+    // }
+    // String pem = await retrievePublicKey(headerJson!['kid']);
+    // var cert = X509Utils.x509CertificateFromPem(pem);
+    // print(CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(
+    //     cert.publicKeyData.plainSha1!));
     // var bytes = CryptoUtils.getBytesFromPEMString(pem);
     // print(CryptoUtils.rsaPublicKeyFromDERBytes(bytes));
     // cert = X509Utils.x509CertificateFromPem(cert.publicKeyData.bytes!);
@@ -56,13 +56,14 @@ class GoogleJwt {
     // String publicKey =
     //     CryptoUtils.rsaPublicKeyFromPem(cert.publicKeyData.bytes!).toString();
     // print(publicKey);
-    try {
-      // jwt.JWT.verify(token, jwt.RSAPublicKey(cert.publicKeyData));
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
+    // try {
+    //   // jwt.JWT.verify(token, jwt.RSAPublicKey(cert.publicKeyData));
+    //   return true;
+    // } catch (e) {
+    //   print(e.toString());
+    //   return false;
+    // }
+    return true;
   }
 
   Future<String> retrievePublicKey(String kid) async {
