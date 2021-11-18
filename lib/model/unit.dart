@@ -12,8 +12,13 @@ class Unit {
   Map<String, dynamic> toJson() => _$UnitToJson(this);
 }
 
+@JsonSerializable()
 class UnitType {
   Type type = '' as Type;
+
+  factory UnitType.fromJson(Map<String, dynamic> json) =>
+      _$UnitTypeFromJson(json);
+  Map<String, dynamic> toJson() => _$UnitTypeToJson(this);
 }
 
 // TODO link the order from order.dart to this file
