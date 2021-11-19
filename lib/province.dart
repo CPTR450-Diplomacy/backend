@@ -6,6 +6,6 @@ class Province {
   String name;
   late ProvinceType type;
   Set<Province>? adjacentProvinces;
-  Unit? occupiedBy;
+  //Unit? occupiedBy;
   late bool hasSupplyCenter;
 }

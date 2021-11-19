@@ -1,27 +1,27 @@
 import 'player.dart';
 import 'country.dart';
 import 'province.dart';
-import 'order.dart';
+//import 'order.dart';
 
-const countries = <String>{
-    'Austria',
-    'England',
-    'France',
-    'Germany',
-    'Italy',
-    'Russia',
-    'Turkey'
-};
+const countries = [
+  'Austria',
+  'England',
+  'France',
+  'Germany',
+  'Italy',
+  'Russia',
+  'Turkey'
+];
 
 const startProvinces = <String, List<String>>{
-    // TODO: Change these to abbreviations
-    'Austria': ['Vienna', 'Budapest', 'Trieste'],
-    'England': ['London', 'Edinburgh', 'Liverpool'],
-    'France': ['Paris', 'Marseilles', 'Brest'],
-    'Germany': ['Berlin', 'Munich', 'Kiel'],
-    'Italy': ['Rome', 'Venice', 'Naples'],
-    'Russia': ['Moscow', 'Sevastopol', 'Warsaw', 'St. Petersburg (SC)'],
-    'Turkey': ['Ankara', 'Constantinople', 'Smyrna']
+  // TODO: Change these to abbreviations
+  'Austria': ['Vienna', 'Budapest', 'Trieste'],
+  'England': ['London', 'Edinburgh', 'Liverpool'],
+  'France': ['Paris', 'Marseilles', 'Brest'],
+  'Germany': ['Berlin', 'Munich', 'Kiel'],
+  'Italy': ['Rome', 'Venice', 'Naples'],
+  'Russia': ['Moscow', 'Sevastopol', 'Warsaw', 'St. Petersburg (SC)'],
+  'Turkey': ['Ankara', 'Constantinople', 'Smyrna']
 };
 
 enum PhaseName {
@@ -32,128 +32,129 @@ enum PhaseName {
   gainLoseUnits
 }
 
-enum Season {
-  spring,
-  fall
-}
+enum Season { spring, fall }
 
 class GameYear {
-  GameYear([this.season = Season.spring, this.year = '1901']);
+  GameYear([this.season = Season.spring, this.year = 1901]);
 
   Season season;
-  String year;
+  int year;
 }
 
 class GameMaster {
-    // Default constructor: seven players
-    GameMaster(List<String> names, {this.id}) {
-        // TODO: assert list length is 7
-        numPlayers = 7;
-        players = List<Player>.empty(growable: true);
-        provinces = <Province>{};
-        for (var name in names) { 
-          players.add(Player(name: name));
-        }
-        // Randomly assign players with country based on lookup
-        _assignCountries(players);
-        // Assign each province based on dictionary lookup
-        _assignProvinces(players);
+  // Default constructor: seven players
+  GameMaster(List<String> names, {this.id}) {
+    numPlayers = 7;
+    players = List<Player>.empty(growable: true);
+    provinces = <Province>{};
+    for (var name in names) {
+      players.add(Player(name: name));
     }
-    // TODO: GameMaster.fromJSON() constructor
-    /* Named constructors for fewer players
+    // Randomly assign players with country based on lookup
+    _assignCountries(players);
+    // Assign each province based on dictionary lookup
+    _assignProvinces(players);
+  }
+  // TODO: GameMaster.fromJSON() constructor
+  /* Named constructors for fewer players
     GameMaster.sixPlayers({String id = 1}) {}
     GameMaster.fivePlayers({String id = 1}) {}
     GameMaster.fourPlayers({String id = 1}) {}
     GameMaster.threePlayers({String id = 1}) {}
     GameMaster.twoPlayers({String id = 1}) {}
     */
-    // Public variables
-    late int numPlayers;
-    late List<Player> players;
-    late Set<Province> provinces;
-    var currentYear = GameYear();
-    PhaseName currentPhase = PhaseName.diplomatic;
+  // Public variables
+  late int numPlayers;
+  late List<Player> players;
+  late Set<Province> provinces;
+  var currentYear = GameYear();
+  PhaseName currentPhase = PhaseName.diplomatic;
 
-    // Private variables
-    late String? id;
-    List<Order>? _orders;
+  // Private variables
+  late String? id;
+  // List<Order>? orders;
 
-    // Getters
-    List<Order> get orders => _orders;
-    
-    // Methods
-    List<String> getPlayerNames() {
-      var theList = <String>[];
-      for (var player in players) {
-        theList.add(player.name);
-      }
-      return theList;
+  // Methods
+  List<String> getPlayerNames() {
+    var theList = <String>[];
+    for (var player in players) {
+      theList.add(player.name);
     }
+    return theList;
+  }
 
-    Map<String, String> whoControlsWhatCountry() {
-      Map<String, String> theMap = {};
-      for (var player in players) {
-        // This assumes 7 players
-        theMap[player.name] = player.allegiences.first.name;
-      }
-      return theMap;
+  Map<String, String> whoControlsWhatCountry() {
+    Map<String, String> theMap = {};
+    for (var player in players) {
+      // This assumes 7 players
+      theMap[player.name] = player.allegiences.first.name;
     }
+    return theMap;
+  }
 
-    Map<String, String> whoControlsWhatProvinces() {
-      // TODO: Fix this function
-      Map<String, String> theMap = {};
-      for (var player in players) {
-        // This assumes 7 players
-        theMap[player.name] = player.allegiences.first.name;
+  Map<String, List<String>> whoControlsWhatProvinces() {
+    // TODO: Fix this function
+    Map<String, List<String>> theMap = {};
+    for (var player in players) {
+      // This assumes 7 players
+      var playerCntry = player.allegiences.first;
+      List<String> provinces = [];
+      for (var province in playerCntry.provinces) {
+        provinces.add(province.name);
       }
-      return theMap;
+      theMap[playerCntry.name] = provinces;
     }
+    return theMap;
+  }
 
-    void _assignCountries(List<Player> players) {
-        // TODO: allow for random assignment via parameter?
-        if (players.length == 7) {
-            for (int i = 0; i < players.length; ++i) {
-                players[i].allegiences?.add( new Country(name: COUNTRIES[i]) );
-            }
-        } else {
-            // Not implemented
+  void _assignCountries(List<Player> players) {
+    // TODO: allow for random assignment via parameter?
+    if (players.length == 7) {
+      for (int i = 0; i < players.length; ++i) {
+        players[i].allegiences.add(Country(name: countries[i]));
+      }
+    } else {
+      // Not implemented
+    }
+  }
+
+  void advanceYear() {
+    if (currentYear.season == Season.fall) {
+      currentYear.season = Season.spring;
+      currentYear.year += 1;
+    } else {
+      currentYear.season = Season.fall;
+    }
+  }
+
+  void _assignProvinces(List<Player> players) {
+    if (players.length == 7) {
+      // Each player represents one country
+      for (var player in players) {
+        // Assign provinces to country
+        var playerCntry = player.allegiences.first;
+        var countriesToAdd = startProvinces[playerCntry.name];
+        if (countriesToAdd != null) {
+          for (var country in countriesToAdd) {
+            playerCntry.provinces.add(Province(name: country));
+          }
         }
+      }
     }
+  }
 
-    void advanceYear() {
-      // TODO: Figure out next year
-      _setNextYear(Season.fall, '1901');
-    }
+  void _resolveYear() {
+    _resolveSeason();
+    _unitRebalance();
+  }
 
-    void _setNextYear(Season season, String year) {
-      // TODO: This function
-    }
+  void _setDependencies() {
+    // What does an order depend on?
+  }
 
-    void _assignProvinces(List<Player> players) {
-        if (players.length == 7) {
-            // Each player represents one country
-            for (player in players) {
-                // Assign provinces to country
-                var playerCntry = player.allegiances.first;
-                playerCntry.provinces.add(startProvinces[player.name]);
-            }
-        }
-    }
+  void _resolveSeason() {
+    _setDependencies();
+  }
 
-    void resolveYear() {
-        resolveSeason();
-        unitRebalance();
-    }
-
-    void _setDependencies()
-
-    void resolveYear();
-
-    
-    void resolveSeason() {
-        // checkValidity();
-        _setDependencies();
-
-
-    }
+  void _unitRebalance() {}
 }

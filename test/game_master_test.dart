@@ -35,9 +35,14 @@ void main() {
       'Russia': ['Moscow', 'Sevastopol', 'Warsaw', 'St. Petersburg (SC)'],
       'Turkey': ['Ankara', 'Constantinople', 'Smyrna']
     });
-    expect(ourGM.currentYear, GameYear());
+    var testGY = GameYear();
+    expect(ourGM.currentYear.season, testGY.season);
+    expect(ourGM.currentYear.year, testGY.year);
     expect(ourGM.currentPhase, PhaseName.diplomatic);
     ourGM.advanceYear();
-    expect(ourGM.currentYear, GameYear(Season.fall));
+    expect(ourGM.currentYear.season, GameYear(Season.fall).season);
+    ourGM.advanceYear();
+    expect(ourGM.currentYear.season, GameYear(Season.spring).season);
+    expect(ourGM.currentYear.year, 1902);
   });
 }
