@@ -10,3 +10,4 @@ part 'unit.dart';
 part 'user.dart';
 part 'order.dart';
 part 'model.g.dart';
+part 'diplomacy.dart';
