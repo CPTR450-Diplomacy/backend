@@ -46,7 +46,7 @@ class FilePersistence extends Persistence {
       tablePath = gameMastersTable;
     }
 
-    var fileName = '$tablePath\\$id';
+    var fileName = '$tablePath/$id';
 
     if (!await File(fileName).exists()) {
       throw StateError('Object does not exist');
