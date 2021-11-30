@@ -84,6 +84,9 @@ void main() {
     await File('data/users/2').writeAsString(jsonEncode(object));
     await File('data/gameMasters/2').writeAsString(jsonEncode(object));
 
+    expect(await File('data/users/2').exists(), equals(true));
+    expect(await File('data/gameMasters/2').exists(), equals(true));
+
     // Verify read from user table
     var resultUser = await filePersistence.readObject('2', Table.users);
     expect(resultUser, equals(object));
