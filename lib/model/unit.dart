@@ -1,15 +1,17 @@
 part of model;
 
+@JsonSerializable()
 class Unit {
-  Order order = '' as Order;
-  Province position = '' as Province;
-  UnitType type  = '' as UnitType;
+  Order order;
+  Province position;
+  UnitType type;
 
   Unit(this.order, this.position, this.type);
+
+  factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
+  Map<String, dynamic> toJson() => _$UnitToJson(this);
 }
 
-class UnitType {
-  Type type = '' as Type;
-}
+enum UnitType { fleet, army }
 
 // TODO link the order from order.dart to this file

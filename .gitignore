@@ -5,7 +5,9 @@
 
 # Conventional directory for build output.
 build/
-.vscode
 
-# Database directory
-data
+# VSCode Workspace settings
+.vscode/
+
+# Data storage
+data/
