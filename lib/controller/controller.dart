@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io' show HttpServer, Platform;
 
 import 'package:basic_utils/basic_utils.dart';
+import 'package:diplomacy/model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;

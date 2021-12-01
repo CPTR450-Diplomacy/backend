@@ -30,7 +30,16 @@ class GoogleJwt {
     payloadJson = jsonDecode(parts[1]);
   }
 
+  Map<String, dynamic> decodeUserInformation() {
+    if (parts.length < 3) {
+      decodeHeaderAndPayload();
+    }
+    var payload = parts[1];
+    return jsonDecode(utf8.decode(base64Url.decode(base64.normalize(payload))));
+  }
+
   Future<bool> verifySignature() async {
+    // TODO implement signature verification
     // if (headerJson == null) {
     //   decodeHeaderAndPayload();
     // }

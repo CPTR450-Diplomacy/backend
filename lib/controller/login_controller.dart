@@ -6,12 +6,17 @@ class LoginController {
 
     router.post('/', (Request r) async {
       var request = jsonDecode(await r.readAsString());
-      var token = request['sesionToken'];
+      var token = request['token'];
       var jwt = GoogleJwt(token);
       bool verified = await jwt.verifySignature();
-      print('Verified? $verified');
+      if (!verified) {
+        return Response.forbidden('Not authorized');
+      }
+      var userInfo = jwt.decodeUserInformation();
 
-      return Response.ok('Login post reponse $verified');
+      String sessionToken = Diplomacy().createSession(userInfo);
+
+      return Response.ok(jsonEncode({'sessionToken': sessionToken}));
     });
 
     router.get('/', (Request r) {
