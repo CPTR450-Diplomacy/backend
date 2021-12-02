@@ -43,4 +43,8 @@ class Diplomacy {
 
     return base64Url.encode(values);
   }
+
+  void reset() {
+    _instance = null;
+  }
 }
