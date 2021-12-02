@@ -12,5 +12,6 @@ class Api {
     var portEnv = envVars['PORT'];
     port = portEnv == null ? 7777 : int.parse(portEnv);
     server = await shelf_io.serve(homeController.handler, '0.0.0.0', port);
+    print('Serving at http://${server.address.host}:${server.port}');
   }
 }
