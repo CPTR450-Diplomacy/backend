@@ -1,8 +1,19 @@
 part of model;
 
+class ParseOrder{
+Map<String, dynamic> json = {};
+  // Singleton
+  static ParseOrder? _instance;
+  ParseOrder._internal(){
+    _instance = this;
+  }
+
+  factory ParseOrder() => _instance ?? ParseOrder._internal();
+}
 class Diplomacy {
   Set<Session> sessions = {};
   Set<User> users = {};
+
 
   // Singleton
   static Diplomacy? _instance;
