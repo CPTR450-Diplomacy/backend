@@ -1,0 +1,20 @@
+[
+    "Move", {
+        "move_0": "A PRV-PRV",
+        "move_1": "F PRV-PRV"
+    },
+    "Hold", {
+        "hold_0": "A PRV Holds",
+        "hold_1": "F PRV Holds"
+    },
+    "Support", {
+        "support_0": "A PRV S A PRV-PRV",
+        "support_1": "A PRV S F PRV-PRV",
+        "support_2": "F PRV S A PRV-PRV",
+        "support_3": "F PRV S F PRV-PRV"
+    },
+    "Convoy", {
+        "convoy_0": "A PRV C A PRV-PRV",
+        "convoy_1": "F PRV C A PRV-PRV"
+    }
+]
