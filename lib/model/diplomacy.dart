@@ -73,4 +73,5 @@ class Diplomacy {
 // Move: A/F PRV - PRV
 // Hold: A/F PRV Holds
 //Support: A/F PRV S A/F PRV - PRV
-// Convoy:s A/F PRV C A PRV - PRV
+// Convoy: A/F PRV C A PRV - PRV
+
