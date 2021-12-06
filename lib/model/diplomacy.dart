@@ -48,3 +48,18 @@ class Diplomacy {
     _instance = null;
   }
 }
+
+// TODO parse orders (Sam, Stefan)
+// orders controller takes json 
+
+//New controller to accept post request
+// should have json , decode json , map after that
+// should return nothing, if exception return internal error 
+// https://en.wikibooks.org/wiki/Diplomacy/Rules
+// https://www.educative.io/edpresso/regex-in-dart
+// https://media.wizards.com/2015/downloads/ah/diplomacy_rules.pdf
+
+// Move: A/F PRV - PRV
+// Hold: A/F PRV Holds
+//Support: A/F PRV S A/F PRV - PRV
+// Convoy:s A/F PRV C A PRV - PRV
