@@ -1,19 +1,7 @@
 part of model;
-
-class ParseOrder{
-Map<String, dynamic> json = {};
-  // Singleton
-  static ParseOrder? _instance;
-  ParseOrder._internal(){
-    _instance = this;
-  }
-
-  factory ParseOrder() => _instance ?? ParseOrder._internal();
-}
 class Diplomacy {
   Set<Session> sessions = {};
   Set<User> users = {};
-
 
   // Singleton
   static Diplomacy? _instance;
@@ -60,25 +48,47 @@ class Diplomacy {
   }
 }
 
-// orders controller takes json
+// Orders controller takes json
+class Orders {
+  Map<String, dynamic> json = {};
+  // Singleton
+  static Orders? _instance;
+  Orders._internal() {
+    _instance = this;
+  }
 
-//New controller to accept post request
-// should have json , decode json , map after that
-// should return nothing, if exception return internal error
+  factory Orders() => _instance ?? Orders._internal();
+
+  void parseOrder(String orderRegexExp) {
+    // Move: A/F PRV - PRV
+    final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    // Hold: A/F PRV Holds
+    final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
+    //Support: A/F PRV S A/F PRV - PRV
+    final supportRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    // Convoy:s A/F PRV C A PRV - PRV
+    final convoyRegex = RegExp(r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+
+    print(moveRegex);
+    print(holdsRegex);
+    print(supportRegex);
+    print(convoyRegex);
+  }
+}
+
+// TODO should have json , decode json , map after that
+// should return nothing, if exception return internal error,
+// throw anything that doesn't match that
+// also encapsulate inside an object instead of float here like a silly person
+
 // https://en.wikibooks.org/wiki/Diplomacy/Rules
 // https://www.educative.io/edpresso/regex-in-dart
 // https://media.wizards.com/2015/downloads/ah/diplomacy_rules.pdf
 
-// Move: A/F PRV - PRV
-// Hold: A/F PRV Holds
-//Support: A/F PRV S A/F PRV - PRV
-// Convoy:s A/F PRV C A PRV - PRV
 
-final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
-final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
-final supportRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
-final convoyRegex = RegExp(
-    r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
-// throw anything that doesn't match that
-// also encapsulate inside an object instead of float here like a silly person
+
+
+
+
+
