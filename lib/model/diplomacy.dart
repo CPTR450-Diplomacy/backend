@@ -60,12 +60,11 @@ class Diplomacy {
   }
 }
 
-// TODO parse orders (Sam, Stefan)
-// orders controller takes json 
+// orders controller takes json
 
 //New controller to accept post request
 // should have json , decode json , map after that
-// should return nothing, if exception return internal error 
+// should return nothing, if exception return internal error
 // https://en.wikibooks.org/wiki/Diplomacy/Rules
 // https://www.educative.io/edpresso/regex-in-dart
 // https://media.wizards.com/2015/downloads/ah/diplomacy_rules.pdf
@@ -73,5 +72,13 @@ class Diplomacy {
 // Move: A/F PRV - PRV
 // Hold: A/F PRV Holds
 //Support: A/F PRV S A/F PRV - PRV
-// Convoy: A/F PRV C A PRV - PRV
+// Convoy:s A/F PRV C A PRV - PRV
 
+final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
+final supportRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+final convoyRegex = RegExp(
+    r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+
+// throw anything that doesn't match that
+// also encapsulate inside an object instead of float here like a silly person
