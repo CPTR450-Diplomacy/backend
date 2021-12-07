@@ -49,15 +49,15 @@ class Diplomacy {
 }
 
 // Orders controller takes json
-class Orders {
+class ParseOrders {
   Map<String, dynamic> json = {};
   // Singleton
-  static Orders? _instance;
-  Orders._internal() {
+  static ParseOrders? _instance;
+  ParseOrders._internal() {
     _instance = this;
   }
 
-  factory Orders() => _instance ?? Orders._internal();
+  factory ParseOrders() => _instance ?? ParseOrders._internal();
 
   void parseOrder(String orderRegexExp) {
     // Move: A/F PRV - PRV
