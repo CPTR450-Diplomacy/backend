@@ -1,20 +1,19 @@
 [
     "Move", {
-        "move_0": "A PRV-PRV",
-        "move_1": "F PRV-PRV"
+        "move_0": "A Kie-Mun",
+        "move_1": "F Bel-Bel"
     },
     "Hold", {
-        "hold_0": "A PRV Holds",
-        "hold_1": "F PRV Holds"
+        "hold_0": "A Lvp Holds",
+        "hold_1": "F Lon Holds"
     },
     "Support", {
-        "support_0": "A PRV S A PRV-PRV",
-        "support_1": "A PRV S F PRV-PRV",
-        "support_2": "F PRV S A PRV-PRV",
-        "support_3": "F PRV S F PRV-PRV"
+        "support_0": "A Par S A Mar-Rom",
+        "support_1": "A Ven S F Nap-Nap",
+        "support_2": "F Tri S A Vie-Bud",
+        "support_3": "F Ank S F Stp-War"
     },
     "Convoy", {
-        "convoy_0": "A PRV C A PRV-PRV",
-        "convoy_1": "F PRV C A PRV-PRV"
+        "convoy_0": "F Stp C A Mos-Sev"
     }
 ]

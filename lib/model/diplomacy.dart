@@ -66,7 +66,7 @@ class Orders {
     final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
     //Support: A/F PRV S A/F PRV - PRV
     final supportRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
-    // Convoy:s A/F PRV C A PRV - PRV
+    // Convoy:s F PRV C A PRV - PRV
     final convoyRegex = RegExp(r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     print(moveRegex);
