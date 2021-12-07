@@ -1,4 +1,5 @@
 part of model;
+
 class Diplomacy {
   Set<Session> sessions = {};
   Set<User> users = {};
@@ -49,33 +50,59 @@ class Diplomacy {
 }
 
 // Orders controller takes json
-class Orders {
+class ParseOrders {
   Map<String, dynamic> json = {};
   // Singleton
-  static Orders? _instance;
-  Orders._internal() {
+  static ParseOrders? _instance;
+  ParseOrders._internal() {
     _instance = this;
   }
 
-  factory Orders() => _instance ?? Orders._internal();
+  factory ParseOrders() => _instance ?? ParseOrders._internal();
 
-  void parseOrder(String orderRegexExp) {
+  Order parseOrder(String orderRegexExp) {
     // Move: A/F PRV - PRV
     final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+
     // Hold: A/F PRV Holds
     final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
-    //Support: A/F PRV S A/F PRV - PRV
-    final supportRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
-    // Convoy:s F PRV C A PRV - PRV
-    final convoyRegex = RegExp(r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
-    print(moveRegex);
-    print(holdsRegex);
-    print(supportRegex);
-    print(convoyRegex);
+    //Support: A/F PRV S A/F PRV - PRV
+    final supportRegex = RegExp(
+        r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+
+    // Convoy:s F PRV C A PRV - PRV
+    final convoyRegex = RegExp(
+        r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+
+    if (moveRegex.hasMatch(orderRegexExp)) {
+      // call move constructor
+      Move orderParsed =
+          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
+      return orderParsed;
+    } else if (holdsRegex.hasMatch(orderRegexExp)) {
+      // call holds constructor
+      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
+      return orderParsed;
+    } else if (supportRegex.hasMatch(orderRegexExp)) {
+      // call support constructor
+      Move supportedMove = Move(
+          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
+      Support orderParsed =
+          Support(orderRegexExp.substring(2, 4), supportedMove);
+      return orderParsed;
+    } else if (convoyRegex.hasMatch(orderRegexExp)) {
+      // call convoy constructor
+      Move convoyedMove = Move(
+          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
+      Support orderParsed =
+          Support(orderRegexExp.substring(2, 4), convoyedMove);
+      return orderParsed;
+    } else {
+      throw FormatException('Invalid order code');
+    }
   }
 }
-
 // TODO should have json , decode json , map after that
 // should return nothing, if exception return internal error,
 // throw anything that doesn't match that

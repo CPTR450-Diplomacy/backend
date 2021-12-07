@@ -2,10 +2,11 @@ part of model;
 
 @JsonSerializable()
 class Order {
-  Province destination = '' as Province;
+  Province source = '' as Province;
+  Province? destination = '' as Province;
   void resolve() {}
 
-  Order(destination);
+  Order(source, destination);
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderToJson(this);
@@ -13,7 +14,7 @@ class Order {
 
 @JsonSerializable()
 class Hold extends Order {
-  Hold(destination) : super(destination);
+  Hold(source) : super(source, null);
   factory Hold.fromJson(Map<String, dynamic> json) => _$HoldFromJson(json);
 
   Map<String, dynamic> toJson() => _$HoldToJson(this);
@@ -21,7 +22,7 @@ class Hold extends Order {
 
 @JsonSerializable()
 class Move extends Order {
-  Move(destination) : super(destination);
+  Move(source, destination) : super(source, destination);
 
   factory Move.fromJson(Map<String, dynamic> json) => _$MoveFromJson(json);
 
@@ -30,7 +31,9 @@ class Move extends Order {
 
 @JsonSerializable()
 class Support extends Order {
-  Support(destination) : super(destination);
+  Move orderSupported = '' as Move;
+
+  Support(source, orderSupported) : super(source, null);
 
   factory Support.fromJson(Map<String, dynamic> json) =>
       _$SupportFromJson(json);
@@ -40,7 +43,9 @@ class Support extends Order {
 
 @JsonSerializable()
 class Convoy extends Order {
-  Convoy(destination) : super(destination);
+  Move orderSupported = '' as Move;
+
+  Convoy(source, orderSupported) : super(source, null);
 
   factory Convoy.fromJson(Map<String, dynamic> json) => _$ConvoyFromJson(json);
 
