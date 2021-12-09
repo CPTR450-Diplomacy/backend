@@ -19,6 +19,24 @@ const orderRules = <int, String>{
   18: 'An Army convoyed using alternate convoy orders reaches its destination as long as at least one convoy route remains open',
   19: 'A convoyed Army doesn’t cut the support of a unit supporting an attack against one of the Fleets necessary for the Army to convoy',
   20: 'An Army with at least one successful convoy route will cut the support given by a unit in the destination province that is trying to support an attack on a Fleet in an alternate route of that convoy'
-}
+};
 
-class Order {}
+enum OrderType { hold, move, support, convoy }
+
+class Order {
+  Order(
+      {required this.country,
+      required this.type,
+      required this.src,
+      required this.dst});
+
+  void makeIntoSupport(Order order) {
+    supports = order;
+  }
+
+  String country;
+  OrderType type;
+  String src;
+  String dst;
+  Order? supports;
+}

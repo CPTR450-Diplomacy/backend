@@ -1,4 +1,5 @@
 import 'package:diplomacy/game_master.dart';
+import 'package:diplomacy/order.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -44,5 +45,36 @@ void main() {
     ourGM.advanceYear();
     expect(ourGM.currentYear.season, GameYear(Season.spring).season);
     expect(ourGM.currentYear.year, 1902);
+
+    // Sample game tests
+    List<Order> ordersList = [
+      Order(
+          country: 'Austria',
+          type: OrderType.move,
+          src: 'Vienna',
+          dst: 'Trieste'),
+      Order(
+          country: 'Austria',
+          type: OrderType.move,
+          src: 'Budapest',
+          dst: 'Galicia'),
+      Order(
+          country: 'Austria',
+          type: OrderType.move,
+          src: 'Trieste',
+          dst: 'Albania')
+    ];
+
+    ourGM.receiveOrders(ordersList);
+    var resolvedList = ourGM.resolveOrders();
+    expect(resolvedList, <String, List<String>>{
+      'Austria': ['[C] Trieste', '[C] Galicia', '[C] Albania'],
+      'England': ['London', 'Edinburgh', 'Liverpool'],
+      'France': ['Paris', 'Marseilles', 'Brest'],
+      'Germany': ['Berlin', 'Munich', 'Kiel'],
+      'Italy': ['Rome', 'Venice', 'Naples'],
+      'Russia': ['Moscow', 'Sevastopol', 'Warsaw', 'St. Petersburg (SC)'],
+      'Turkey': ['Ankara', 'Constantinople', 'Smyrna']
+    });
   });
 }

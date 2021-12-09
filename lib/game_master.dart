@@ -1,7 +1,7 @@
 import 'player.dart';
 import 'country.dart';
 import 'province.dart';
-//import 'order.dart';
+import 'order.dart';
 
 const countries = [
   'Austria',
@@ -72,7 +72,7 @@ class GameMaster {
 
   // Private variables
   late String? id;
-  // List<Order>? orders;
+  List<Order>? orders;
 
   // Methods
   List<String> getPlayerNames() {
@@ -127,20 +127,40 @@ class GameMaster {
     }
   }
 
+  // TODO: Fill set of provinces with full list of provinces
+
   void _assignProvinces(List<Player> players) {
     if (players.length == 7) {
       // Each player represents one country
       for (var player in players) {
         // Assign provinces to country
         var playerCntry = player.allegiences.first;
-        var countriesToAdd = startProvinces[playerCntry.name];
-        if (countriesToAdd != null) {
-          for (var country in countriesToAdd) {
-            playerCntry.provinces.add(Province(name: country));
+        var provincesToAdd = startProvinces[playerCntry.name];
+        if (provincesToAdd != null) {
+          for (var province in provincesToAdd) {
+            // TODO: assign players object from GameMaster
+            playerCntry.provinces.add(Province(name: province));
           }
         }
       }
     }
+  }
+
+  void receiveOrders(List<Order> orders) {
+    this.orders = orders;
+  }
+
+  Map<String, List<String>> resolveOrders() {
+    // TODO: Actually move the units
+    // For now this just updates the provinces.
+    var theProvinces = whoControlsWhatProvinces();
+    for (var order in orders!) {
+      var provinces = theProvinces[order.country];
+      var i = provinces?.indexOf(order.src);
+      provinces?[i!] = "[C] " + order.dst;
+      theProvinces[order.country] = provinces!;
+    }
+    return theProvinces;
   }
 
   void _resolveYear() {
