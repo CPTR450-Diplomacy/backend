@@ -6,7 +6,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:shelf/shelf.dart';
 
 part 'country.dart';
 part 'diplomacy.dart';
