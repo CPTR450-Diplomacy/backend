@@ -18,18 +18,61 @@ Map<String, dynamic> _$CountryToJson(Country instance) => <String, dynamic>{
       'province': instance.province.toList(),
     };
 
-Province _$ProvinceFromJson(Map<String, dynamic> json) => Province(
-      (json['adjacentProvinces'] as List<dynamic>)
-          .map((e) => Province.fromJson(e as Map<String, dynamic>))
-          .toSet(),
-      Unit.fromJson(json['unit'] as Map<String, dynamic>),
-      json['hasSupplyCenter'] as bool,
+Order _$OrderFromJson(Map<String, dynamic> json) => Order(
+      json['source'],
+      json['destination'],
     );
 
-Map<String, dynamic> _$ProvinceToJson(Province instance) => <String, dynamic>{
-      'adjacentProvinces': instance.adjacentProvinces.toList(),
-      'unit': instance.unit,
-      'hasSupplyCenter': instance.hasSupplyCenter,
+Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
+      'source': instance.source,
+      'destination': instance.destination,
+    };
+
+Hold _$HoldFromJson(Map<String, dynamic> json) => Hold(
+      json['source'],
+    )..destination = json['destination'] == null
+        ? null
+        : Province.fromJson(json['destination'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$HoldToJson(Hold instance) => <String, dynamic>{
+      'source': instance.source,
+      'destination': instance.destination,
+    };
+
+Move _$MoveFromJson(Map<String, dynamic> json) => Move(
+      json['source'],
+      json['destination'],
+    );
+
+Map<String, dynamic> _$MoveToJson(Move instance) => <String, dynamic>{
+      'source': instance.source,
+      'destination': instance.destination,
+    };
+
+Support _$SupportFromJson(Map<String, dynamic> json) => Support(
+      json['source'],
+      json['orderSupported'],
+    )..destination = json['destination'] == null
+        ? null
+        : Province.fromJson(json['destination'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$SupportToJson(Support instance) => <String, dynamic>{
+      'source': instance.source,
+      'destination': instance.destination,
+      'orderSupported': instance.orderSupported,
+    };
+
+Convoy _$ConvoyFromJson(Map<String, dynamic> json) => Convoy(
+      json['source'],
+      json['orderSupported'],
+    )..destination = json['destination'] == null
+        ? null
+        : Province.fromJson(json['destination'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$ConvoyToJson(Convoy instance) => <String, dynamic>{
+      'source': instance.source,
+      'destination': instance.destination,
+      'orderSupported': instance.orderSupported,
     };
 
 Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
@@ -42,6 +85,20 @@ Player _$PlayerFromJson(Map<String, dynamic> json) => Player(
 Map<String, dynamic> _$PlayerToJson(Player instance) => <String, dynamic>{
       'name': instance.name,
       'allegiances': instance.allegiances.toList(),
+    };
+
+Province _$ProvinceFromJson(Map<String, dynamic> json) => Province(
+      (json['adjacentProvinces'] as List<dynamic>)
+          .map((e) => Province.fromJson(e as Map<String, dynamic>))
+          .toSet(),
+      Unit.fromJson(json['unit'] as Map<String, dynamic>),
+      json['hasSupplyCenter'] as bool,
+    );
+
+Map<String, dynamic> _$ProvinceToJson(Province instance) => <String, dynamic>{
+      'adjacentProvinces': instance.adjacentProvinces.toList(),
+      'unit': instance.unit,
+      'hasSupplyCenter': instance.hasSupplyCenter,
     };
 
 Unit _$UnitFromJson(Map<String, dynamic> json) => Unit(
@@ -60,43 +117,3 @@ const _$UnitTypeEnumMap = {
   UnitType.fleet: 'fleet',
   UnitType.army: 'army',
 };
-
-Order _$OrderFromJson(Map<String, dynamic> json) => Order(
-      json['destination'],
-    );
-
-Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
-      'destination': instance.destination,
-    };
-
-Hold _$HoldFromJson(Map<String, dynamic> json) => Hold(
-      json['destination'],
-    );
-
-Map<String, dynamic> _$HoldToJson(Hold instance) => <String, dynamic>{
-      'destination': instance.destination,
-    };
-
-Move _$MoveFromJson(Map<String, dynamic> json) => Move(
-      json['destination'],
-    );
-
-Map<String, dynamic> _$MoveToJson(Move instance) => <String, dynamic>{
-      'destination': instance.destination,
-    };
-
-Support _$SupportFromJson(Map<String, dynamic> json) => Support(
-      json['destination'],
-    );
-
-Map<String, dynamic> _$SupportToJson(Support instance) => <String, dynamic>{
-      'destination': instance.destination,
-    };
-
-Convoy _$ConvoyFromJson(Map<String, dynamic> json) => Convoy(
-      json['destination'],
-    );
-
-Map<String, dynamic> _$ConvoyToJson(Convoy instance) => <String, dynamic>{
-      'destination': instance.destination,
-    };

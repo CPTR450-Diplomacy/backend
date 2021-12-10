@@ -1,0 +1,19 @@
+[
+    "Move", {
+        "move_0": "A Kie-Mun",
+        "move_1": "F Bel-Bel"
+    },
+    "Hold", {
+        "hold_0": "A Lvp Holds",
+        "hold_1": "F Lon Holds"
+    },
+    "Support", {
+        "support_0": "A Par S A Mar-Rom",
+        "support_1": "A Ven S F Nap-Nap",
+        "support_2": "F Tri S A Vie-Bud",
+        "support_3": "F Ank S F Stp-War"
+    },
+    "Convoy", {
+        "convoy_0": "F Stp C A Mos-Sev"
+    }
+]
