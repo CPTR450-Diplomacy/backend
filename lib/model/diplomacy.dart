@@ -44,22 +44,6 @@ class Diplomacy {
     return base64Url.encode(values);
   }
 
-  void reset() {
-    _instance = null;
-  }
-}
-
-// Orders controller takes json
-class ParseOrders {
-  Map<String, dynamic> json = {};
-  // Singleton
-  static ParseOrders? _instance;
-  ParseOrders._internal() {
-    _instance = this;
-  }
-
-  factory ParseOrders() => _instance ?? ParseOrders._internal();
-
   Order parseOrder(String orderRegexExp) {
     // Move: A/F PRV - PRV
     final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
@@ -102,7 +86,12 @@ class ParseOrders {
       throw FormatException('Invalid order code');
     }
   }
+
+  void reset() {
+    _instance = null;
+  }
 }
+
 // TODO should have json , decode json , map after that
 // should return nothing, if exception return internal error,
 // throw anything that doesn't match that
@@ -111,11 +100,3 @@ class ParseOrders {
 // https://en.wikibooks.org/wiki/Diplomacy/Rules
 // https://www.educative.io/edpresso/regex-in-dart
 // https://media.wizards.com/2015/downloads/ah/diplomacy_rules.pdf
-
-
-
-
-
-
-
-
