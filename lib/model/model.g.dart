@@ -91,7 +91,6 @@ Province _$ProvinceFromJson(Map<String, dynamic> json) => Province(
       (json['adjacentProvinces'] as List<dynamic>)
           .map((e) => Province.fromJson(e as Map<String, dynamic>))
           .toSet(),
-      Unit.fromJson(json['unit'] as Map<String, dynamic>),
       json['hasSupplyCenter'] as bool,
     );
 
