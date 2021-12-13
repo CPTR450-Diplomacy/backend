@@ -2,11 +2,12 @@ part of model;
 
 @JsonSerializable()
 class Order {
-  Province source = '' as Province;
-  Province? destination = '' as Province;
+  // TODO change source and destination to Provinces selected from GameMaster
+  String source;
+  String? destination;
   void resolve() {}
 
-  Order(source, destination);
+  Order(this.source, this.destination);
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
   Map<String, dynamic> toJson() => _$OrderToJson(this);
@@ -31,9 +32,9 @@ class Move extends Order {
 
 @JsonSerializable()
 class Support extends Order {
-  Move orderSupported = '' as Move;
+  Move orderSupported;
 
-  Support(source, orderSupported) : super(source, null);
+  Support(source, this.orderSupported) : super(source, null);
 
   factory Support.fromJson(Map<String, dynamic> json) =>
       _$SupportFromJson(json);
@@ -43,9 +44,9 @@ class Support extends Order {
 
 @JsonSerializable()
 class Convoy extends Order {
-  Move orderSupported = '' as Move;
+  Move orderSupported;
 
-  Convoy(source, orderSupported) : super(source, null);
+  Convoy(source, this.orderSupported) : super(source, null);
 
   factory Convoy.fromJson(Map<String, dynamic> json) => _$ConvoyFromJson(json);
 

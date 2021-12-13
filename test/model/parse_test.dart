@@ -21,7 +21,7 @@ void main() {
     // note: this currently fails due to the
     // way orders are defined in parseOrder()
     Diplomacy myDiplomacy = Diplomacy();
-    expect(true, myDiplomacy is Diplomacy);
+    expect(myDiplomacy is Diplomacy, equals(true));
 
     for (var moveOrder in moveOrders) {
       expect(true, moveOrder is String);
@@ -44,8 +44,11 @@ void main() {
     expect(true, myDiplomacy is Diplomacy);
 
     for (var holdOrder in holdOrders) {
-      expect(true, holdOrder is String);
-      expect(true, myDiplomacy.parseOrder(holdOrder) is Hold);
+      expect(holdOrder is String, equals(true));
+      expect(
+        myDiplomacy.parseOrder(holdOrder) is Hold,
+        true,
+      );
     }
   });
 
@@ -81,8 +84,9 @@ void main() {
     expect(true, myDiplomacy is Diplomacy);
 
     for (var supportOrder in supportOrders) {
-      expect(true, supportOrder is String);
-      expect(true, myDiplomacy.parseOrder(supportOrder) is Support);
+      expect(supportOrder is String, equals(true));
+      print(myDiplomacy.parseOrder(supportOrder).runtimeType);
+      expect(myDiplomacy.parseOrder(supportOrder) is Support, equals(true));
     }
   });
 
@@ -107,8 +111,8 @@ void main() {
     expect(true, myDiplomacy is Diplomacy);
 
     for (var convoyOrder in convoyOrders) {
-      expect(true, convoyOrder is String);
-      expect(true, myDiplomacy.parseOrder(convoyOrder) is Convoy);
+      expect(convoyOrder is String, equals(true));
+      expect(myDiplomacy.parseOrder(convoyOrder) is Convoy, equals(true));
     }
   });
 
