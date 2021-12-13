@@ -96,7 +96,6 @@ Province _$ProvinceFromJson(Map<String, dynamic> json) => Province(
 
 Map<String, dynamic> _$ProvinceToJson(Province instance) => <String, dynamic>{
       'adjacentProvinces': instance.adjacentProvinces.toList(),
-      'unit': instance.unit,
       'hasSupplyCenter': instance.hasSupplyCenter,
     };
 
