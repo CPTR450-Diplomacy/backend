@@ -3,8 +3,8 @@ part of model;
 @JsonSerializable()
 class Order {
   // TODO change source and destination to Provinces selected from GameMaster
-  String source;
-  String? destination;
+  Province source;
+  Province? destination;
   void resolve() {}
 
   Order(this.source, this.destination);

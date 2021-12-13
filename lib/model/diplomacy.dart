@@ -60,26 +60,41 @@ class Diplomacy {
         RegExp(r'F(\s)[A-Z][a-z]{2}(\s)C(\s)A(\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     if (supportRegex.hasMatch(orderRegexExp)) {
+      // TODO remove test source and destination provinces in favor of lookup in gamemaster
+      Province source = Province(
+          orderRegexExp.substring(10, 12), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(14, 16), {}, false, ProvinceType.inland);
       // call support constructor
-      Move supportedMove = Move(
-          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Support orderParsed =
-          Support(orderRegexExp.substring(2, 4), supportedMove);
+      Move supportedMove = Move(source, destination);
+      Province supportSource = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Support orderParsed = Support(supportSource, supportedMove);
       return orderParsed;
     } else if (holdsRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
       // call holds constructor
-      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
+      Hold orderParsed = Hold(source);
       return orderParsed;
     } else if (convoyRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(10, 12), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(14, 16), {}, false, ProvinceType.inland);
       // call convoy constructor
-      Move convoyedMove = Move(
-          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Convoy orderParsed = Convoy(orderRegexExp.substring(2, 4), convoyedMove);
+      Move convoyedMove = Move(source, destination);
+      Province convoySource = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Convoy orderParsed = Convoy(convoySource, convoyedMove);
       return orderParsed;
     } else if (moveRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(6, 8), {}, false, ProvinceType.inland);
       // call move constructor
-      Move orderParsed =
-          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
+      Move orderParsed = Move(source, destination);
       return orderParsed;
     } else {
       throw FormatException('Invalid order code');
