@@ -46,41 +46,40 @@ class Diplomacy {
 
   Order parseOrder(String orderRegexExp) {
     // Move: A/F PRV - PRV
-    final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    final moveRegex = RegExp(r'[AF](\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     // Hold: A/F PRV Holds
-    final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
+    final holdsRegex = RegExp(r'[AF](\s)[A-Z][a-z]{2}(\s)Holds');
 
     //Support: A/F PRV S A/F PRV - PRV
     final supportRegex = RegExp(
-        r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+        r'[AF](\s)[A-Z][a-z]{2}(\s)S(\s)[AF](\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     // Convoy:s F PRV C A PRV - PRV
-    final convoyRegex = RegExp(
-        r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    final convoyRegex =
+        RegExp(r'F(\s)[A-Z][a-z]{2}(\s)C(\s)A(\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
-    if (moveRegex.hasMatch(orderRegexExp)) {
-      // call move constructor
-      Move orderParsed =
-          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
-      return orderParsed;
-    } else if (holdsRegex.hasMatch(orderRegexExp)) {
-      // call holds constructor
-      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
-      return orderParsed;
-    } else if (supportRegex.hasMatch(orderRegexExp)) {
+    if (supportRegex.hasMatch(orderRegexExp)) {
       // call support constructor
       Move supportedMove = Move(
           orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
       Support orderParsed =
           Support(orderRegexExp.substring(2, 4), supportedMove);
       return orderParsed;
+    } else if (holdsRegex.hasMatch(orderRegexExp)) {
+      // call holds constructor
+      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
+      return orderParsed;
     } else if (convoyRegex.hasMatch(orderRegexExp)) {
       // call convoy constructor
       Move convoyedMove = Move(
           orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Support orderParsed =
-          Support(orderRegexExp.substring(2, 4), convoyedMove);
+      Convoy orderParsed = Convoy(orderRegexExp.substring(2, 4), convoyedMove);
+      return orderParsed;
+    } else if (moveRegex.hasMatch(orderRegexExp)) {
+      // call move constructor
+      Move orderParsed =
+          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
       return orderParsed;
     } else {
       throw FormatException('Invalid order code');
