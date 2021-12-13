@@ -15,4 +15,4 @@ part 'games_controller.dart';
 part 'google_jwt.dart';
 part 'home_controller.dart';
 part 'login_controller.dart';
-part 'parsing_controller.dart';
+part 'orders_controller.dart';
