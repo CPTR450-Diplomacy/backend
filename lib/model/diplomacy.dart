@@ -59,28 +59,27 @@ class Diplomacy {
     final convoyRegex =
         RegExp(r'F(\s)[A-Z][a-z]{2}(\s)C(\s)A(\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
-    if (moveRegex.hasMatch(orderRegexExp)) {
-      // call move constructor
-      Move orderParsed =
-          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
-      return orderParsed;
-    } else if (holdsRegex.hasMatch(orderRegexExp)) {
-      // call holds constructor
-      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
-      return orderParsed;
-    } else if (supportRegex.hasMatch(orderRegexExp)) {
+    if (supportRegex.hasMatch(orderRegexExp)) {
       // call support constructor
       Move supportedMove = Move(
           orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
       Support orderParsed =
           Support(orderRegexExp.substring(2, 4), supportedMove);
       return orderParsed;
+    } else if (holdsRegex.hasMatch(orderRegexExp)) {
+      // call holds constructor
+      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
+      return orderParsed;
     } else if (convoyRegex.hasMatch(orderRegexExp)) {
       // call convoy constructor
       Move convoyedMove = Move(
           orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Support orderParsed =
-          Support(orderRegexExp.substring(2, 4), convoyedMove);
+      Convoy orderParsed = Convoy(orderRegexExp.substring(2, 4), convoyedMove);
+      return orderParsed;
+    } else if (moveRegex.hasMatch(orderRegexExp)) {
+      // call move constructor
+      Move orderParsed =
+          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
       return orderParsed;
     } else {
       throw FormatException('Invalid order code');

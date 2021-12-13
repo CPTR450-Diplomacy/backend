@@ -85,7 +85,6 @@ void main() {
 
     for (var supportOrder in supportOrders) {
       expect(supportOrder is String, equals(true));
-      print(myDiplomacy.parseOrder(supportOrder).runtimeType);
       expect(myDiplomacy.parseOrder(supportOrder) is Support, equals(true));
     }
   });
