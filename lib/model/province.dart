@@ -2,13 +2,17 @@ part of model;
 
 @JsonSerializable()
 class Province {
-  static Province province = '' as Province;
+  String name;
+  ProvinceType provinceType;
   Set<Province> adjacentProvinces = {};
   bool hasSupplyCenter = false;
 
-  Province(this.adjacentProvinces, this.hasSupplyCenter);
+  Province(this.name, this.adjacentProvinces, this.hasSupplyCenter,
+      this.provinceType);
 
   factory Province.fromJson(Map<String, dynamic> json) =>
       _$ProvinceFromJson(json);
   Map<String, dynamic> toJson() => _$ProvinceToJson(this);
 }
+
+enum ProvinceType { inland, coastal, water }

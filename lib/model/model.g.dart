@@ -19,8 +19,10 @@ Map<String, dynamic> _$CountryToJson(Country instance) => <String, dynamic>{
     };
 
 Order _$OrderFromJson(Map<String, dynamic> json) => Order(
-      json['source'],
-      json['destination'],
+      Province.fromJson(json['source'] as Map<String, dynamic>),
+      json['destination'] == null
+          ? null
+          : Province.fromJson(json['destination'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrderToJson(Order instance) => <String, dynamic>{
@@ -51,7 +53,7 @@ Map<String, dynamic> _$MoveToJson(Move instance) => <String, dynamic>{
 
 Support _$SupportFromJson(Map<String, dynamic> json) => Support(
       json['source'],
-      json['orderSupported'],
+      Move.fromJson(json['orderSupported'] as Map<String, dynamic>),
     )..destination = json['destination'] == null
         ? null
         : Province.fromJson(json['destination'] as Map<String, dynamic>);
@@ -64,7 +66,7 @@ Map<String, dynamic> _$SupportToJson(Support instance) => <String, dynamic>{
 
 Convoy _$ConvoyFromJson(Map<String, dynamic> json) => Convoy(
       json['source'],
-      json['orderSupported'],
+      Move.fromJson(json['orderSupported'] as Map<String, dynamic>),
     )..destination = json['destination'] == null
         ? null
         : Province.fromJson(json['destination'] as Map<String, dynamic>);
@@ -88,25 +90,33 @@ Map<String, dynamic> _$PlayerToJson(Player instance) => <String, dynamic>{
     };
 
 Province _$ProvinceFromJson(Map<String, dynamic> json) => Province(
+      json['name'] as String,
       (json['adjacentProvinces'] as List<dynamic>)
           .map((e) => Province.fromJson(e as Map<String, dynamic>))
           .toSet(),
       json['hasSupplyCenter'] as bool,
+      $enumDecode(_$ProvinceTypeEnumMap, json['provinceType']),
     );
 
 Map<String, dynamic> _$ProvinceToJson(Province instance) => <String, dynamic>{
+      'name': instance.name,
+      'provinceType': _$ProvinceTypeEnumMap[instance.provinceType],
       'adjacentProvinces': instance.adjacentProvinces.toList(),
       'hasSupplyCenter': instance.hasSupplyCenter,
     };
 
+const _$ProvinceTypeEnumMap = {
+  ProvinceType.inland: 'inland',
+  ProvinceType.coastal: 'coastal',
+  ProvinceType.water: 'water',
+};
+
 Unit _$UnitFromJson(Map<String, dynamic> json) => Unit(
-      Order.fromJson(json['order'] as Map<String, dynamic>),
       Province.fromJson(json['position'] as Map<String, dynamic>),
       $enumDecode(_$UnitTypeEnumMap, json['type']),
     );
 
 Map<String, dynamic> _$UnitToJson(Unit instance) => <String, dynamic>{
-      'order': instance.order,
       'position': instance.position,
       'type': _$UnitTypeEnumMap[instance.type],
     };

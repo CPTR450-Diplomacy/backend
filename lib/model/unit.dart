@@ -2,11 +2,10 @@ part of model;
 
 @JsonSerializable()
 class Unit {
-  Order order;
   Province position;
   UnitType type;
 
-  Unit(this.order, this.position, this.type);
+  Unit(this.position, this.type);
 
   factory Unit.fromJson(Map<String, dynamic> json) => _$UnitFromJson(json);
   Map<String, dynamic> toJson() => _$UnitToJson(this);

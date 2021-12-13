@@ -46,41 +46,55 @@ class Diplomacy {
 
   Order parseOrder(String orderRegexExp) {
     // Move: A/F PRV - PRV
-    final moveRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    final moveRegex = RegExp(r'[AF](\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     // Hold: A/F PRV Holds
-    final holdsRegex = RegExp(r'[AF]:space:[A-Z][a-z]{2}:space:Holds');
+    final holdsRegex = RegExp(r'[AF](\s)[A-Z][a-z]{2}(\s)Holds');
 
     //Support: A/F PRV S A/F PRV - PRV
     final supportRegex = RegExp(
-        r'[AF]:space:[A-Z][a-z]{2}:space:S:space:[AF]:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+        r'[AF](\s)[A-Z][a-z]{2}(\s)S(\s)[AF](\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
     // Convoy:s F PRV C A PRV - PRV
-    final convoyRegex = RegExp(
-        r'F:space:[A-Z][a-z]{2}:space:C:space:A:space:[A-Z][a-z]{2}-[A-Z][a-z]{2}');
+    final convoyRegex =
+        RegExp(r'F(\s)[A-Z][a-z]{2}(\s)C(\s)A(\s)[A-Z][a-z]{2}-[A-Z][a-z]{2}');
 
-    if (moveRegex.hasMatch(orderRegexExp)) {
-      // call move constructor
-      Move orderParsed =
-          Move(orderRegexExp.substring(2, 4), orderRegexExp.substring(6, 8));
+    if (supportRegex.hasMatch(orderRegexExp)) {
+      // TODO remove test source and destination provinces in favor of lookup in gamemaster
+      Province source = Province(
+          orderRegexExp.substring(10, 12), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(14, 16), {}, false, ProvinceType.inland);
+      // call support constructor
+      Move supportedMove = Move(source, destination);
+      Province supportSource = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Support orderParsed = Support(supportSource, supportedMove);
       return orderParsed;
     } else if (holdsRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
       // call holds constructor
-      Hold orderParsed = Hold(orderRegexExp.substring(2, 4));
-      return orderParsed;
-    } else if (supportRegex.hasMatch(orderRegexExp)) {
-      // call support constructor
-      Move supportedMove = Move(
-          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Support orderParsed =
-          Support(orderRegexExp.substring(2, 4), supportedMove);
+      Hold orderParsed = Hold(source);
       return orderParsed;
     } else if (convoyRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(10, 12), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(14, 16), {}, false, ProvinceType.inland);
       // call convoy constructor
-      Move convoyedMove = Move(
-          orderRegexExp.substring(10, 12), orderRegexExp.substring(14, 16));
-      Support orderParsed =
-          Support(orderRegexExp.substring(2, 4), convoyedMove);
+      Move convoyedMove = Move(source, destination);
+      Province convoySource = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Convoy orderParsed = Convoy(convoySource, convoyedMove);
+      return orderParsed;
+    } else if (moveRegex.hasMatch(orderRegexExp)) {
+      Province source = Province(
+          orderRegexExp.substring(2, 4), {}, false, ProvinceType.inland);
+      Province destination = Province(
+          orderRegexExp.substring(6, 8), {}, false, ProvinceType.inland);
+      // call move constructor
+      Move orderParsed = Move(source, destination);
       return orderParsed;
     } else {
       throw FormatException('Invalid order code');
