@@ -10,6 +10,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'country.dart';
 part 'diplomacy.dart';
 part 'file_persistence.dart';
+part 'game_master.dart';
 part 'model.g.dart';
 part 'order.dart';
 part 'persistence.dart';
