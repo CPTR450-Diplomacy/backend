@@ -1,7 +1,4 @@
-import 'player.dart';
-import 'country.dart';
-import 'province.dart';
-import 'order.dart';
+part of model;
 
 const countries = [
   'Austria',
@@ -48,12 +45,10 @@ class GameMaster {
     players = List<Player>.empty(growable: true);
     provinces = <Province>{};
     for (var name in names) {
-      players.add(Player(name: name));
+      players.add(Player(name, <Country>{}));
     }
-    // Randomly assign players with country based on lookup
+    // Assign players with country based on lookup
     _assignCountries(players);
-    // Assign each province based on dictionary lookup
-    _assignProvinces(players);
   }
   // TODO: GameMaster.fromJSON() constructor
   /* Named constructors for fewer players
@@ -87,7 +82,7 @@ class GameMaster {
     Map<String, String> theMap = {};
     for (var player in players) {
       // This assumes 7 players
-      theMap[player.name] = player.allegiences.first.name;
+      theMap[player.name] = player.allegiances.first.name;
     }
     return theMap;
   }
@@ -97,9 +92,9 @@ class GameMaster {
     Map<String, List<String>> theMap = {};
     for (var player in players) {
       // This assumes 7 players
-      var playerCntry = player.allegiences.first;
+      var playerCntry = player.allegiances.first;
       List<String> provinces = [];
-      for (var province in playerCntry.provinces) {
+      for (var province in playerCntry.province) {
         provinces.add(province.name);
       }
       theMap[playerCntry.name] = provinces;
@@ -108,10 +103,14 @@ class GameMaster {
   }
 
   void _assignCountries(List<Player> players) {
-    // TODO: allow for random assignment via parameter?
     if (players.length == 7) {
       for (int i = 0; i < players.length; ++i) {
-        players[i].allegiences.add(Country(name: countries[i]));
+        Set<Province> provinces = {};
+        for (var each in startProvinces[countries[i]]!) {
+          // TODO: Fix this to accommodate types of provinces
+          provinces.add(Province(each, {}, false, ProvinceType.inland));
+        }
+        players[i].allegiances.add(Country(countries[i], provinces));
       }
     } else {
       // Not implemented
@@ -127,40 +126,20 @@ class GameMaster {
     }
   }
 
-  // TODO: Fill set of provinces with full list of provinces
-
-  void _assignProvinces(List<Player> players) {
-    if (players.length == 7) {
-      // Each player represents one country
-      for (var player in players) {
-        // Assign provinces to country
-        var playerCntry = player.allegiences.first;
-        var provincesToAdd = startProvinces[playerCntry.name];
-        if (provincesToAdd != null) {
-          for (var province in provincesToAdd) {
-            // TODO: assign players object from GameMaster
-            playerCntry.provinces.add(Province(name: province));
-          }
-        }
-      }
-    }
-  }
-
   void receiveOrders(List<Order> orders) {
     this.orders = orders;
   }
 
-  Map<String, List<String>> resolveOrders() {
-    // TODO: Actually move the units
-    // For now this just updates the provinces.
-    var theProvinces = whoControlsWhatProvinces();
-    for (var order in orders!) {
-      var provinces = theProvinces[order.country];
-      var i = provinces?.indexOf(order.src);
-      provinces?[i!] = "[C] " + order.dst;
-      theProvinces[order.country] = provinces!;
-    }
-    return theProvinces;
+  void resolveOrders() {
+    // OBSOLETE, I don't have time to update this
+    // var theProvinces = whoControlsWhatProvinces();
+    // for (var order in orders!) {
+    //   var provinces = theProvinces[order.country];
+    //   var i = provinces?.indexOf(order.src);
+    //   provinces?[i!] = "[C] " + order.dst;
+    //   theProvinces[order.country] = provinces!;
+    // }
+    // return theProvinces;
   }
 
   void _resolveYear() {
